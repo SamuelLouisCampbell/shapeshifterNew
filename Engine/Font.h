@@ -1,15 +1,12 @@
 #pragma once
 #include "ChiliWin.h"
 #include <ft2build.h>
-//#include <freetype/freetype.h>
 #include FT_FREETYPE_H
 #include "FreeType.h"
 #include <thread>
 #include <chrono>
 #include <freetype/ftcolor.h>
-//#include "Rect.h"
-//#include "Vec2.h"
-//#include "Graphics.h"
+
 
 
 class Font

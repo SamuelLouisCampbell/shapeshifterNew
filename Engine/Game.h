@@ -27,6 +27,7 @@
 #include "Surface.h"
 #include "Font.h"
 #include "FreeType.h"
+#include "Triangle.h"
 
 class Game
 {
@@ -45,6 +46,7 @@ private:
 	MainWindow& wnd;
 	Graphics gfx;
     Font myFont = { "Fonts/Inkfree.ttf",36 };
+    Triangle tri0;
 	/********************************/
 	/*  User Variables              */
 	/********************************/

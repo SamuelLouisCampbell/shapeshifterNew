@@ -24,10 +24,11 @@
 #include FT_FREETYPE_H
 
 
-Game::Game( MainWindow& wnd )
-	:
-	wnd( wnd ),
-	gfx( wnd )
+Game::Game(MainWindow& wnd)
+    :
+    wnd(wnd),
+    gfx(wnd),
+    tri0(1.0f, 0.0f, { 100.0f, 100.0f }, Colors::Green)
 {
 }
 
@@ -41,11 +42,13 @@ void Game::Go()
 
 void Game::UpdateModel()
 {
-    myFont.ComputeString("Hello You!");
+    myFont.ComputeString("Let us render some triangles...");
+    
 }
 
 void Game::ComposeFrame()
 {
+    gfx.DrawClosedPolyLine(tri0.GetShape(), tri0.GetColor());
     Vec2f pos = { 100, 100 };
     myFont.RenderString(gfx,pos, 1.0f);
 }

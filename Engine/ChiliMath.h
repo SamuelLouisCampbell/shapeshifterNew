@@ -19,11 +19,23 @@
 *	along with The Chili DirectX Framework.  If not, see <http://www.gnu.org/licenses/>.  *
 ******************************************************************************************/
 #pragma once
-
+#include <cmath>
 #include <math.h>
 
 constexpr float PI = 3.14159265f;
 constexpr double PI_D = 3.1415926535897932;
+
+template<typename T>
+inline float ToRadians(T angleDegs)
+{
+	return angleDegs * (PI / 180.0f);
+}
+
+template<typename T>
+inline float ToDegrees(T angleRads)
+{
+	return angleRads * (180.0f / PI);
+}
 
 template <typename T>
 inline auto sq( const T& x )
