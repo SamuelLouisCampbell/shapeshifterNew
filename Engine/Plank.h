@@ -19,7 +19,7 @@ public:
 		shape.emplace_back(pos);
 		shape.emplace_back(freePtModel);
 		shape.emplace_back(Vec2f{ freePtModel.x, freePtModel.y + width});
-		shape.emplace_back(Vec2f{ pos.x, pos.y + width });
+		shape.emplace_back(Vec2f{ pos.x, pos.y + width});
 
 	}
 	Vec2 GetFreePt() const
@@ -45,12 +45,12 @@ public:
 	}
 	Vec2 GetPlankSurfaceVector() const
 	{
-		return -freePtModel;
+		return pos - freePtModel;
 	}
 	auto GetPoints() const
 	{
 		const Vec2f pos = GetPos(); 
-		return std::make_pair(pos, pos + freePtModel);
+		return std::make_pair(pos, freePtModel);
 	}
 
 private:
