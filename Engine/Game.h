@@ -28,6 +28,13 @@
 #include "Font.h"
 #include "FreeType.h"
 #include "Triangle.h"
+#include "CoordinateTransformer.h"
+#include "Plank.h"
+#include "Ball.h"
+#include "Vec2.h"
+#include "Sound.h"
+#include "BallSpawn.h"
+#include "FrameTimer.h"
 
 class Game
 {
@@ -45,8 +52,19 @@ private:
 private:
 	MainWindow& wnd;
 	Graphics gfx;
+    static constexpr float maxBallDist = 400.0f;
+
+    FrameTimer ft;
+    Sound collisionSound = Sound(L"Sound/punch.wav");
     Font myFont = { "Fonts/Inkfree.ttf",36 };
     Triangle tri0;
+    Plank plank0;
+    std::vector<Ball> balls;
+    BallSpawn spawn;
+    CoordinateTransformer ct;
+    float speed = 3.0f;
+
+
 	/********************************/
 	/*  User Variables              */
 	/********************************/

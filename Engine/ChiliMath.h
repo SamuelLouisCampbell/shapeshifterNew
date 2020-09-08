@@ -21,9 +21,32 @@
 #pragma once
 #include <cmath>
 #include <math.h>
+#include "Vec2.h"
 
 constexpr float PI = 3.14159265f;
 constexpr double PI_D = 3.1415926535897932;
+
+template <typename T>
+inline auto sq(const T& x)
+{
+	return x * x;
+}
+
+template<typename T> 
+inline T ReturnDiv2(T number)
+{
+	return T / T(2.0f);
+}
+
+template<typename T>
+inline T DistancePointsLine(const _Vec2<T>& p0, const _Vec2<T>& p1, const _Vec2<T>& q)
+{
+	const T a = p0.y - p1.y;
+	const T b = p1.x - p0.x;
+	const T c = p0.x * p1.y - p1.x * p0.y;
+
+	return std::abs(a * q.x + b * q.y + c) / std::sqrt(sq(a) + sq(b));
+}
 
 template<typename T>
 inline float ToRadians(T angleDegs)
@@ -35,12 +58,6 @@ template<typename T>
 inline float ToDegrees(T angleRads)
 {
 	return angleRads * (180.0f / PI);
-}
-
-template <typename T>
-inline auto sq( const T& x )
-{
-	return x * x;
 }
 
 template<typename T>

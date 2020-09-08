@@ -1,8 +1,14 @@
 #include "Shape2D.h"
 
-const std::vector<Vec2f>& Shape2D::GetShape() const
+const std::vector<Vec2f> Shape2D::GetShape() const
 {
-	return shape;
+	auto poly = shape;
+	for (auto& v : poly)
+	{
+		v *= scale;
+		v += pos;
+	}
+	return poly;
 }
 
 const Color& Shape2D::GetColor() const
@@ -10,14 +16,14 @@ const Color& Shape2D::GetColor() const
 	return shapeCol;
 }
 
-const Vec2f Shape2D::GetTransform() const
+const Vec2f Shape2D::GetPos() const
 {
-	return posTransform;
+	return pos;
 }
 
-Vec2f Shape2D::SetTransform(Vec2f& newPos)
+Vec2f Shape2D::SetPos(Vec2f newPos)
 {
-	return posTransform = newPos;
+	return pos += newPos;
 }
 
 const float Shape2D::GetScale() const

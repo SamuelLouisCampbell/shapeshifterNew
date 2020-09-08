@@ -97,6 +97,7 @@
       <CallingConvention>VectorCall</CallingConvention>
       <MinimalRebuild>false</MinimalRebuild>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <AdditionalDependencies>C:\Users\Sam Campbell\source\VCPKG\vcpkg\packages\freetype_x86-windows\lib\freetype.lib;%(AdditionalDependencies)</AdditionalDependencies>
@@ -135,6 +136,7 @@
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <BufferSecurityCheck>false</BufferSecurityCheck>
       <PreprocessorDefinitions>NDEBUG;_UNICODE;UNICODE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -142,6 +144,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Ball.h" />
+    <ClInclude Include="BallSpawn.h" />
     <ClInclude Include="ChiliException.h" />
     <ClInclude Include="ChiliMath.h" />
     <ClInclude Include="ChiliWin.h" />
@@ -149,12 +153,15 @@
     <ClInclude Include="COMInitializer.h" />
     <ClInclude Include="DXErr.h" />
     <ClInclude Include="Font.h" />
+    <ClInclude Include="FrameTimer.h" />
     <ClInclude Include="FreeType.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Graphics.h" />
+    <ClInclude Include="CoordinateTransformer.h" />
     <ClInclude Include="Keyboard.h" />
     <ClInclude Include="MainWindow.h" />
     <ClInclude Include="Mouse.h" />
+    <ClInclude Include="Plank.h" />
     <ClInclude Include="Rect.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="Shape2D.h" />
@@ -165,8 +172,10 @@
     <ClInclude Include="Vec2.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Ball.cpp" />
     <ClCompile Include="COMInitializer.cpp" />
     <ClCompile Include="DXErr.cpp" />
+    <ClCompile Include="FrameTimer.cpp" />
     <ClCompile Include="FreeType.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Graphics.cpp" />
@@ -256,6 +265,9 @@
     <Font Include="Fonts\consola.ttf" />
     <Font Include="Fonts\Helvetica.ttf" />
     <Font Include="Fonts\Inkfree.ttf" />
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="Sound\hit.wav" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -28,7 +28,10 @@ Game::Game(MainWindow& wnd)
     :
     wnd(wnd),
     gfx(wnd),
-    tri0(1.0f, 0.0f, { 100.0f, 100.0f }, Colors::Green)
+    ct(gfx),
+    tri0(300.0f, 0.0f, { 0.0f, 100.0f }, Colors::Magenta),
+    plank0({ 100.0f,0.0f }, 300.0f, 600.0f, 9.0f),
+    spawn(balls, 20.0f, { -0.0f, -250.0f }, -150.0f, 100.0f, 200.0f, 1.0f)
 {
 }
 
@@ -40,15 +43,121 @@ void Game::Go()
 	gfx.EndFrame();
 }
 
+
+
 void Game::UpdateModel()
 {
-    myFont.ComputeString("Let us render some triangles...");
+    float dt = ft.Mark();
+
     
+  
+ 
+    for (auto& b : balls)
+    {
+        const auto plankPts = plank0.GetPoints();
+        const auto dy = plankPts.second.y - plankPts.first.y;
+        const auto dx = plankPts.second.x - plankPts.first.x;
+        const auto ballPos = b.GetPos();
+        Vec2 PlankNormal;
+        //horizontal line
+        if (dy == 0.0f)
+        {
+            PlankNormal = { 0.0f, ballPos.y > plankPts.first.y ? 1.0f : -1.0f };
+        }
+        //vertical line
+        else if (dx == 0.0f)
+        {
+            PlankNormal = { ballPos.x > plankPts.first.x ? 1.0f : -1.0f, 0.0f };
+        }
+        else
+        {
+            const auto m = dy / dx;
+            const auto w = -dx / dy;
+            const auto b = plankPts.first.y - m * plankPts.first.x;
+            const auto p = ballPos.y - w * ballPos.x;
+            const auto x = (p - b) / (m - w);
+            const auto y = m * x + b;
+            PlankNormal = ballPos - Vec2{ x,y };
+        }
+
+        if (PlankNormal * b.GetVelocity() < 0.0f)
+        {
+            if (DistancePointsLine(plankPts.first, plankPts.second, b.GetPos()) < b.GetScale())
+            {
+                const Vec2 w = plank0.GetPlankSurfaceVector().GetNormalized();
+                const Vec2 v = b.GetVelocity();
+                //dot product for collision
+                b.SetVelocity(w * (v * w) * 2.0f - v);
+                collisionSound.Play();
+            }
+        }
+      
+
+        b.Update(dt);
+    }
+    spawn.Update(dt);
+    const auto new_end = std::remove_if(balls.begin(), balls.end(),
+        [this](const Ball& b)
+        {
+            return b.GetPos().LenSq() > sq(maxBallDist);
+        });
+    balls.erase(new_end, balls.end());
+
+
+
+    myFont.ComputeString(std::to_string(spawn.GetTime()));
+    //move tri
+    if (wnd.kbd.KeyIsPressed(VK_RIGHT))
+    {
+        tri0.SetPos({ speed, 0.0f});
+    }
+    if (wnd.kbd.KeyIsPressed(VK_LEFT))
+    {
+        tri0.SetPos({ -speed, 0.0f });
+    }
+    if (wnd.kbd.KeyIsPressed(VK_UP))
+    {
+        tri0.SetPos({ 0.0f, speed });
+    }
+    if (wnd.kbd.KeyIsPressed(VK_DOWN))
+    {
+        tri0.SetPos({ 0.0f, -speed });
+    }
+    //move paddle
+    if (wnd.kbd.KeyIsPressed('W'))
+    {
+        plank0.SetFreeY(plank0.GetFreePt().y + speed);
+    }
+    if (wnd.kbd.KeyIsPressed('S'))
+    {
+        plank0.SetFreeY(plank0.GetFreePt().y - speed);
+    }
+    //scale tri
+    while (!wnd.mouse.IsEmpty())
+    {
+        const auto e = wnd.mouse.Read();
+        if (e.GetType() == Mouse::Event::Type::WheelUp)
+        {
+            tri0.SetScale(tri0.GetScale() * 1.05f);
+        }
+        else if (e.GetType() == Mouse::Event::Type::WheelDown)
+        {
+            tri0.SetScale(tri0.GetScale() * 0.95f);
+        }  
+    }
 }
 
 void Game::ComposeFrame()
 {
-    gfx.DrawClosedPolyLine(tri0.GetShape(), tri0.GetColor());
-    Vec2f pos = { 100, 100 };
+    //ct.DrawClosedPolyline(tri0.GetShape(), tri0.GetColor());
+   
+    ct.DrawClosedPolyline(plank0.GetShape(), plank0.GetColor());
+    
+    for (auto& b : balls)
+    {
+        ct.DrawClosedPolyline(b.GetShape(), b.GetColor());
+    }
+
+    Vec2f pos = { 50, 50 };
     myFont.RenderString(gfx,pos, 1.0f);
 }

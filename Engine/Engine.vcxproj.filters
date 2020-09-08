@@ -16,6 +16,9 @@
     <Filter Include="Shaders">
       <UniqueIdentifier>{8b6c92a8-f65d-451e-80e3-d65773602b92}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Shapes">
+      <UniqueIdentifier>{fc56a66a-f1c6-40f2-9630-c9913fd68f4a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ChiliWin.h">
@@ -75,10 +78,25 @@
     <ClInclude Include="ChiliMath.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Shape2D.h">
+    <ClInclude Include="CoordinateTransformer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Triangle.h">
+      <Filter>Header Files\Shapes</Filter>
+    </ClInclude>
+    <ClInclude Include="Shape2D.h">
+      <Filter>Header Files\Shapes</Filter>
+    </ClInclude>
+    <ClInclude Include="Plank.h">
+      <Filter>Header Files\Shapes</Filter>
+    </ClInclude>
+    <ClInclude Include="Ball.h">
+      <Filter>Header Files\Shapes</Filter>
+    </ClInclude>
+    <ClInclude Include="BallSpawn.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FrameTimer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -120,6 +138,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Triangle.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Ball.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FrameTimer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -166,5 +190,10 @@
     <Font Include="Fonts\arialbi.ttf">
       <Filter>Resource Files</Filter>
     </Font>
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="Sound\hit.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
   </ItemGroup>
 </Project>
